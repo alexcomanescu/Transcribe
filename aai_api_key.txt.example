@@ -1,0 +1,10 @@
+# AssemblyAI API key placeholder
+# --------------------------------
+# 1. Go to your AssemblyAI dashboard and copy your API key.
+# 2. Create a file named "aai_api_key.txt" in this folder.
+# 3. Paste the key on a single line in that file.
+#
+# NOTE: The real "aai_api_key.txt" file is ignored by git for safety.
+
+YOUR_ASSEMBLYAI_API_KEY_HERE
+

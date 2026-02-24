@@ -1,0 +1,9 @@
+# API keys
+aai_api_key.txt
+
+# Transcripts and generated documents
+*.txt
+*.docx
+*.m4a
+*.mp4a
+
