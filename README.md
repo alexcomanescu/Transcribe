@@ -19,9 +19,13 @@ Transcribe audio recordings (e.g. therapy sessions) with speaker labels, then ex
 ### 2. Create a virtual environment (recommended)
 
 ```bash
-conda create -n whisper-env python=3.11
-conda activate whisper-env
+python -m venv venv
 ```
+
+Then activate it:
+
+- **Windows:** `venv\Scripts\activate`
+- **macOS / Linux:** `source venv/bin/activate`
 
 ### 3. Install dependencies
 
