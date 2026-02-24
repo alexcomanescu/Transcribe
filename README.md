@@ -64,7 +64,7 @@ python txt_to_docx.py your_recording_transcript.txt Session1.docx
 
 ## Configuration
 
-- **Language / model** — Edit `transcribe.py`: `language_code` (e.g. `"ro"` for Romanian) and `speech_models` (e.g. `["universal-2"]`). See [AssemblyAI docs](https://www.assemblyai.com/docs) for options.
+- **Language / model** — Edit **`config.json`**: `language_code` (e.g. `"ro"` for Romanian), `speech_models` (e.g. `["universal-2"]`), and `speaker_labels` (true/false). See [AssemblyAI docs](https://www.assemblyai.com/docs) for options.
 - **Document title / styles** — Edit `txt_to_docx.py` to change the Word title, colors, or layout.
 
 ## Project structure
@@ -73,6 +73,7 @@ python txt_to_docx.py your_recording_transcript.txt Session1.docx
 |----------------------|--------|
 | `transcribe.py`      | Audio → transcript (.txt) via AssemblyAI |
 | `txt_to_docx.py`     | Transcript (.txt) → formatted .docx |
+| `config.json`        | Language, model, and transcription options |
 | `aai_api_key.txt`    | Your API key (create this; do not commit) |
 | `aai_api_key.txt.example` | Instructions for the API key file |
 

@@ -1,10 +1,12 @@
 import assemblyai as aai
+import json
 import sys
 import os
 from datetime import timedelta
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 API_KEY_FILE = "aai_api_key.txt"  # This file should contain your AssemblyAI API key
+CONFIG_FILE = "config.json"       # Language, model, and transcription options
 # ──────────────────────────────────────────────────────────────────────────────
 
 
@@ -24,6 +26,32 @@ def load_api_key(path: str = API_KEY_FILE) -> str:
 
     return key
 
+
+def load_transcription_config(path: str = CONFIG_FILE) -> dict:
+    """Load language and model settings from config.json."""
+    if not os.path.exists(path):
+        print(f"Error: Config file not found: {path}")
+        sys.exit(1)
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except json.JSONDecodeError as e:
+        print(f"Error: {path} is not valid JSON: {e}")
+        sys.exit(1)
+
+    # Validate required keys
+    for key in ("language_code", "speech_models"):
+        if key not in data:
+            print(f"Error: config.json must contain '{key}'.")
+            sys.exit(1)
+    if not isinstance(data["speech_models"], list) or len(data["speech_models"]) == 0:
+        print("Error: config.json 'speech_models' must be a non-empty list.")
+        sys.exit(1)
+
+    return data
+
+
 def format_timestamp(ms):
     """Convert milliseconds to HH:MM:SS format."""
     seconds = ms // 1000
@@ -37,11 +65,12 @@ def transcribe(audio_path):
     print(f"Uploading {audio_path}...")
 
     aai.settings.api_key = load_api_key()
+    opts = load_transcription_config()
 
     config = aai.TranscriptionConfig(
-        language_code="ro",             # Romanian
-        speaker_labels=True,            # Speaker diarization
-        speech_models=["universal-2"],  # Model supporting many languages incl. Romanian
+        language_code=opts["language_code"],
+        speaker_labels=opts.get("speaker_labels", True),
+        speech_models=opts["speech_models"],
     )
 
     transcriber = aai.Transcriber(config=config)

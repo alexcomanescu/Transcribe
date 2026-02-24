@@ -1,0 +1,5 @@
+{
+  "language_code": "ro",
+  "speech_models": ["universal-2"],
+  "speaker_labels": true
+}
